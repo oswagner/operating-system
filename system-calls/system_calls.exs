@@ -8,7 +8,7 @@ defmodule SystemCalls do
 
         result = case operation do
             "+" -> evaluate(numbers, operation)
-            "-" -> evaluate(numbers, operation)
+            "*" -> evaluate(numbers, operation)
             _ -> IO.puts("Invalid operation") # chamada de sistema => imprimir na tela
         end
 
