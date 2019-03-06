@@ -6,23 +6,27 @@ defmodule SystemCalls do
 
         operation = IO.gets("Operation ?\n") |> String.trim # chamada de sistema => ler na tela
 
+        evaluate(numbers, operation)
+    end
+
+    def evaluate(numbers, operation) do
         result = case operation do
-            "+" -> evaluate(numbers, operation)
-            "*" -> evaluate(numbers, operation)
+            "+" -> do_evaluate(numbers, operation)
+            "*" -> do_evaluate(numbers, operation)
             _ -> IO.puts("Invalid operation") # chamada de sistema => imprimir na tela
         end
-
+        
         IO.puts(result) # chamada de sistema => imprimir na tela
     end
 
-    def evaluate(numbers, operation) when operation == "+" do
+    defp do_evaluate(numbers, operation) when operation == "+" do
         IO.puts("Soma") # chamada de sistema => imprimir na tela
         numbers |> Enum.reduce(fn x, acc -> x + acc end)
     end
     
-    def evaluate(numbers, operation) when operation == "-" do
-        IO.puts("Subtrai") # chamada de sistema => imprimir na tela
-        numbers |> Enum.reduce(fn x, acc -> x - acc end)
+    defp do_evaluate(numbers, operation) when operation == "*" do
+        IO.puts("Multpica") # chamada de sistema => imprimir na tela
+        numbers |> Enum.reduce(fn x, acc -> x * acc end)
     end
 end
 
