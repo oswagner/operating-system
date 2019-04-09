@@ -1,0 +1,105 @@
+                            S1
+                         /  |  \
+                        S2  S3  S4
+                        |   |   |
+                            S5
+                          /    \
+                        S6     S7
+                        |       |
+                            S8
+
+FORK / JOIN
+            C5=3
+            C8=2
+            S1
+                FORK L1
+                FORK L2
+                S4
+            J1: JOIN C5
+            S5
+                FORK L3
+            S7
+            J2: JOIN C8
+            S8
+            end
+
+            L1:
+                S2
+                goto J1
+            L2:
+                S3
+                goto J1
+            L3:
+                S6
+                goto J2
+
+PARBEGIN / PAREND
+
+            begin
+                S1
+                PARBEGIN
+                    S2,S3,S4
+                PAREND
+                S5
+                PARBEGIN
+                    S6, S7
+                PAREND
+                S8
+            end
+
+
+                    S1
+                /        \
+               S2         S3
+            /     \     /    \
+           S4        S5       S6
+            \         |        /
+                     S7
+
+                    begin
+                        C5=2
+                        C7=3
+                        S1
+                        FORK L1
+                        S3
+                        FORK L2
+                        J1: JOIN C5
+                        S5
+                        J2: JOIN C7
+                        S7
+                    end
+
+                        L1:
+                            S2
+                            FORK L3
+                            goto J1
+                        L2:
+                            S6
+                            goto J2
+                        
+                        L3:
+                            S4
+                            goto J2
+
+                    
+
+                        S1
+                    /       \
+                   S2       S4
+                    |       |
+                   S3       | 
+                     \     /
+                        S5
+
+PARBEGIN / PAREND
+                    begin
+                        S1
+                        PARBEGIN
+                            S4
+                            begin
+                                S2
+                                S3
+                            end
+                        PAREND  
+                        S5
+                    end
